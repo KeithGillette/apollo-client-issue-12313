@@ -1,0 +1,26 @@
+<h1><a href="https://github.com/apollographql/apollo-client/issues/12313">Apollo Client Issue #12313</a></h1>
+<section *ngIf="loading">Loading ...</section>
+<section *ngIf="error" style="color: red;">
+  Error: {{ error.message }}
+</section>
+<ol>
+  <li *ngFor="let assignment of assignmentList">
+    {{ assignment.name }}
+    <select #assignmentTaskStatusSelect
+            (change)="updateAssignmentTaskStatus(assignment._id, assignmentTaskStatusSelect.value)">
+      <option
+        *ngFor="let assignmentTaskStatus of assignmentTaskStatusList"
+        [value]="assignmentTaskStatus"
+        [selected]="assignment.assignmentTaskStatus === assignmentTaskStatus">
+        {{ assignmentTaskStatus }}
+      </option>
+    </select>
+  </li>
+</ol>
+This project will build and run correctly with <code>&#64;apollo/client&#64;3.12.15</code> but not newer releases.
+To reproduce the errors:
+<pre>
+  npm install &#64;apollo/client&#64;latest
+  tsc --noEmit --skipLibCheck
+  npm run start
+</pre>
